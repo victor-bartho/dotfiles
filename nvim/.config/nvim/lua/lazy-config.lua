@@ -13,7 +13,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -38,12 +37,10 @@ require('lazy').setup({
   require 'kickstart.plugins.treesitter',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.lint',
-
-
-
+  require 'kickstart.plugins.which-key',
 
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- VICTOR: renamed .config/nvim/lua/custom directory. custom > victor 
+  -- VICTOR: renamed .config/nvim/lua/custom directory. custom > victor
   { import = 'victor.plugins' },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the

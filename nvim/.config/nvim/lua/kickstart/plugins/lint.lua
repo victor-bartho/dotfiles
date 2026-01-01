@@ -1,3 +1,4 @@
+-- still experimenting and pondering if like linters or not...
 return {
 
   { -- Linting
@@ -7,9 +8,34 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
-        --python = { 'pylint' },
         html = { 'htmlhint' },
-        javascript = {'eslint'},
+        javascript = { 'eslint_d' },
+        --i HATED pylint, so unactivated for now
+        --python = { 'pylint' },
+      }
+
+      --Limpando a sujeira do pylint:
+      local pylint = lint.linters.pylint
+
+      -- Salva os argumentos originais caso existam, ou inicia lista vazia
+      pylint.args = {
+        '--output-format=json', -- Necessário para o nvim-lint ler
+        '--from-stdin', -- Necessário para ler o buffer atual
+        '--score=no', -- Não queremos nota (ex: 7/10) no final
+
+        -- DESATIVANDO AS CHATICES:
+        '--disable=C0114', -- missing-module-docstring (Não precisa docstring em tudo)
+        '--disable=C0115', -- missing-class-docstring
+        '--disable=C0116', -- missing-function-docstring
+        '--disable=C0103', -- invalid-name (Deixa você usar nomes curtos ou fora do padrão)
+        '--disable=C0411', -- wrong-import-order (A ordem dos imports não importa tanto)
+        '--disable=E0401', -- import-error (IMPORTANTE: Deixa o Pyright cuidar disso!)
+
+        -- IMPORTANTE: O nome do arquivo tem que ser o último argumento!
+        -- Sem isso, o pylint não sabe o que analisar e dá o erro "No files to lint".
+        function()
+          return vim.api.nvim_buf_get_name(0)
+        end,
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,

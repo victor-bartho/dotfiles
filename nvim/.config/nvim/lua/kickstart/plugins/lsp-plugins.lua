@@ -59,7 +59,6 @@ return {
       --    That is to say, every time a new file is opened that is associated with
       --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
       --    function will be executed to configure the current buffer
-      --VICTOR: ovewrite config padrao do kickstart para so dar highlight automatico caso o LSP suporte essa funcao (html e emmet nao suportam)
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -118,7 +117,6 @@ return {
           end
         end,
       })
-      --FIM DO PASTE VICTOR
 
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts
@@ -239,6 +237,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'pylint', -- python linter
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
