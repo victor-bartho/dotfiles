@@ -6,7 +6,8 @@ return {
 
     -- sobrescrevendo cores dos modos apenas se o colorscheme for catppuccin
     if vim.g.colors_name == 'catppuccin-mocha' then
-      colors.normal.a.bg = '#cba6f7' -- mauve (roxo) para normal
+      colors.normal.a.bg = '#a588c9' -- east side (roxo) para normal
+      -- colors test: #957ab6,
       colors.insert.a.bg = '#89b4fa' -- blue (azul) para insert
       colors.visual.a.bg = '#a6e3a1' -- green (verde) para visual
     end
